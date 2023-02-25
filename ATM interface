@@ -1,0 +1,83 @@
+	import java.util.ArrayList;
+	import java.util.Scanner;
+
+	public class Atm {
+	    public static void main(String[] args) {
+	        Scanner input = new Scanner(System.in);
+	        double balance = 1000.0;
+	        int pin = 1234;
+	        ArrayList<String> transactionHistory = new ArrayList<>();
+	        System.out.println("Please enter your user ID");
+	        char uid=input.next().charAt(0);
+	        System.out.println("Welcome to ATM!");
+	        System.out.println("Please enter your 4-digit PIN: ");
+	        int userPin = input.nextInt();
+	        
+	        if (userPin != pin) {
+	            System.out.println("Invalid PIN. Please try again.");
+	            return;
+	        }
+	        
+	        while (true) {
+	            System.out.println("Your account balance is $" + balance);
+	            System.out.println("Please select a transaction:");
+	            System.out.println("1. Withdraw");
+	            System.out.println("2. Deposit");
+	            System.out.println("3. Transfer");
+	            System.out.println("4. Transaction History");
+	            System.out.println("5. Quit");
+	            
+	            int choice = input.nextInt();
+	            
+	            switch (choice) {
+	                case 1:
+	                    System.out.print("Enter amount to withdraw: $");
+	                    double withdrawAmount = input.nextDouble();
+	                    
+	                    if (withdrawAmount > balance) {
+	                        System.out.println("Insufficient funds.");
+	                        continue;
+	                    }
+	                    
+	                    balance -= withdrawAmount;
+	                    transactionHistory.add("Withdrawal: -$" + withdrawAmount);
+	                    System.out.println("New balance: $" + balance);
+	                    break;
+	                case 2:
+	                    System.out.print("Enter amount to deposit: $");
+	                    double depositAmount = input.nextDouble();
+	                    balance += depositAmount;
+	                    transactionHistory.add("Deposit: +$" + depositAmount);
+	                    System.out.println("New balance: $" + balance);
+	                    break;
+	                case 3:
+	                    System.out.print("Enter transfer amount: $");
+	                    double transferAmount = input.nextDouble();
+	                    
+	                    if (transferAmount > balance) {
+	                        System.out.println("Insufficient funds.");
+	                        continue;
+	                    }
+	                    
+	                    System.out.print("Enter recipient account number: ");
+	                    int recipientAccountNumber = input.nextInt();
+	                    transactionHistory.add("Transfer: -$" + transferAmount + " to account " + recipientAccountNumber);
+	                    balance -= transferAmount;
+	                    System.out.println("Transfer successful. New balance: $" + balance);
+	                    break;
+	                case 4:
+	                    System.out.println("Transaction History:");
+	                    for (String transaction : transactionHistory) {
+	                        System.out.println(transaction);
+	                    }
+	                    break;
+	                case 5:
+	                    System.out.println("Thank you for using ATM!");
+	                    return;
+	                default:
+	                    System.out.println("Invalid choice.");
+	                    break;
+	            }
+	        }
+	    }
+	}
