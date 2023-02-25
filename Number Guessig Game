@@ -1,0 +1,28 @@
+import java.util.Scanner;
+	public class NumberG {
+	    public static void main(String[] args) {
+	        Scanner input = new Scanner(System.in);
+	        int randomNo = (int) (Math.random() * 100) + 1;
+	        int guess = 0;
+	        int numGuesses = 0;
+	        boolean guessedCorrectly = false;
+	        
+	        System.out.println("Guess a number between 1 and 100");
+	        
+	        while (!guessedCorrectly) {
+	            System.out.print("Enter your guess: ");
+	            guess = input.nextInt();
+	            numGuesses++;
+	            
+	            if (guess < randomNo) {
+	                System.out.println("Too low! Try again.");
+	            } else if (guess > randomNo) {
+	                System.out.println("Too high! Try again.");
+	            } else {
+	                guessedCorrectly = true;
+	            }
+	        }
+	        
+	        System.out.println("Congratulations! You guessed the number in " + numGuesses + " guesses.");
+	    }
+	}
